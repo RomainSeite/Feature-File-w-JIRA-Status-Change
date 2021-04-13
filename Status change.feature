@@ -1,6 +1,6 @@
 Feature: "LD-3"  Status change
   Scenario: file status is received
-    Given file "received"
+    Given file "not received"
     When "the client sends file"
     Then the file status should be "received"
 
