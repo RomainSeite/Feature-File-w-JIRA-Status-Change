@@ -1,5 +1,5 @@
 Feature: "LD-2"  Status change
-  Scenario outline: file "<status>"
+  Scenario Outline: file "<status>"
     Given a file "<startingStatus>"
     When "<action>"
     Then the file status should be "<status>"
