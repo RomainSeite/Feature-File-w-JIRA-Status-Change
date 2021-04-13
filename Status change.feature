@@ -1,23 +1,24 @@
 Feature: "LD-3"  Status change
-  Background: 
-    Given file "<startingStatus>"
-    
-  Scenario Outline: file is "<status>"
-    Given file "<startingStatus>"
-    When "<action>"
-    Then the file status should be "<status>"
+  Scenario: file status is received
+    Given file "received"
+    When "the client sends file"
+    Then the file status should be "received"
 
-Examples:
-  | <startingStatus>   | <action>                   | <status>           |
-  | not received       | the client sends file      | received           |
-  | received           | 24h passed since reception | awaiting treatment |
-  | awaiting treatment | analyst intervenes         | processed          |
+Scenario: file status is awaiting treatment
+  Given file "awaiting treatment"
+  When "24h passed since reception"
+  Then the file status should be "<awaiting treatment>"
 
-  Scenario Outline: file is "<status>"
-    Given file processed
-    When file is "<status>"
-    Then the file status should be "<status>"
-    And the client should receive "<notification>"
+Scenario: file status is processed
+  Given file "processed"
+  When "analyst intervenes"
+  Then the file status should be "processed"
+
+Scenario Outline: file is "<status>"
+  Given file processed
+  When file is processed
+  Then the file status should be "<status>"
+  And the client should receive "<notification>"
 
 Examples:
   | <status>           | <notification>                             |
