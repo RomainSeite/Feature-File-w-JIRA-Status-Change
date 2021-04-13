@@ -1,8 +1,9 @@
 Feature: "LD-3"  Status change
   Background: 
-    Given file "<status>"
+    Given file "<startingStatus>"
     
   Scenario Outline: file is "<status>"
+    Given file "<startingStatus>"
     When "<action>"
     Then the file status should be "<status>"
 
@@ -13,11 +14,12 @@ Examples:
   | awaiting treatment | analyst intervenes         | processed          |
 
   Scenario Outline: file is "<status>"
-    When file is "<fileValidity>"
+    Given file processed
+    When file is "<status>"
     Then the file status should be "<status>"
     And the client should receive "<notification>"
 
 Examples:
-  | <startingStatus>   | <fileValidity>     | <status>           | <notification>                             |
-  | processed          | invalid            | complete           | your document is complete                  |
-  | processed          | valid              | incomplete         | file xx is incorrect, send this file again |
+  | <status>           | <notification>                             |
+  | complete           | your document is complete                  |
+  | incomplete         | file xx is incorrect, send this file again |
